@@ -105,7 +105,7 @@
         precision: "highp" // Use high precision for rendering
     });
     renderer.setSize(container3D.clientWidth, container3D.clientHeight);
-    renderer.setPixelRatio(container3D.clientWidth / container3D.clientHeight);  // Adjust for high-DPI displays
+    renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
     container3D.appendChild(renderer.domElement);
 
     function render() {
@@ -153,6 +153,7 @@
     // Load environment map for reflections
     const textureLoader = new THREE.TextureLoader();
     const envMap = textureLoader.load("https://www.bayarings.com/overcast_soil_puresky.jpg");  // Set the environment texture
+    envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     // Set up the environment map for reflections
     scene.environment = envMap;
@@ -191,6 +192,8 @@
                             child.material.clearcoat = 0; // No extra shine
                             child.material.clearcoatRoughness = 0; // Smooth clearcoat
                             child.material.reflectivity = 0.5;  // Moderate reflectivity
+                            child.material.minFilter = THREE.LinearMipMapLinearFilter;
+                            child.material.magFilter = THREE.LinearFilter;
                             child.material.needsUpdate = true;
                         }
                     });
@@ -206,6 +209,6 @@
             );
 
         } );
-    </script>
+</script>
 
 </html>
