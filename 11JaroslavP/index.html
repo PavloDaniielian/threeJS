@@ -75,16 +75,20 @@
             <div id="container3D" class="viewer"></div>
         </div>
     </main>
-
-    <script type="module" src="js/main.js"></script>
 </body>
 
-<script>
+<script type="module">
+    window.addEventListener('resize', function () {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        location.reload();
+    });
+
     import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js"; // Import the THREE.js library
     import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js"; // To allow for the camera to move around the scene
     import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js"; // To allow for importing the .gltf file
     import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js"; // To allow for importing environment
-
 
     // Three.js setup for 3D ring container3D
     const container3D = document.getElementById('container3D');
@@ -96,7 +100,7 @@
         precision: "highp" // Use high precision for rendering
     });
     renderer.setSize(container3D.clientWidth, container3D.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
+    renderer.setPixelRatio(container3D.clientWidth / container3D.clientHeight);  // Adjust for high-DPI displays
     container3D.appendChild(renderer.domElement);
 
     function render() {
@@ -138,25 +142,8 @@
         renderer.render(scene, camera);
     }
 
-    // Add a listener to the window, so we can resize the window and the camera
-    window.addEventListener("resize", function () {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Add mouse position listener, so we can make the eye move
-    document.onmousemove = (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    }
-
     // Start the 3D rendering
     animate();
-
-    // Keep track of the mouse position, so we can make the eye move
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
 
     // Load environment map for reflections
     const textureLoader = new THREE.TextureLoader();
@@ -215,5 +202,5 @@
 
         } );
     </script>
-    
+
 </html>
