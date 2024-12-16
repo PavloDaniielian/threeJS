@@ -1,0 +1,8 @@
+Model Information:
+* title:	Diamond Engagement Ring
+* source:	https://sketchfab.com/3d-models/diamond-engagement-ring-76c5820088d34eae934a23d043d1fec3
+* author:	assetfactory (https://sketchfab.com/assetfactory)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
